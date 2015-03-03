@@ -1,9 +1,9 @@
 [main]
 pluginsync = true
-ssldir = /var/lib/puppet/ssl
 logdir = /var/log/puppet
 vardir = /var/lib/puppet
 rundir = /var/run/puppet
+ssldir = $vardi/ssl
 factpath = $vardir/lib/facter
 
 [master]
@@ -12,4 +12,7 @@ factpath = $vardir/lib/facter
 ssl_client_header = SSL_CLIENT_S_DN
 ssl_client_verify_header = SSL_CLIENT_VERIFY
 environmentpath = $confdir/environments
+certname = <%= @fqdn %>
+
+[agent]
 certname = <%= @fqdn %>

@@ -3,28 +3,28 @@ class puppetmaster::configure {
   require 'puppetmaster::puppet_package'
   require 'puppetmaster::nginx_passenger_package'
 
-  file { '/opt/puppet-rack':
+  file { '/etc/puppet/rack':
     ensure => directory,
     owner  => 'puppet',
     group  => 'puppet',
     mode   => '0755',
   }
 
-  file { '/opt/puppet-rack/public':
+  file { '/etc/puppet/rack/public':
     ensure => directory,
     owner  => 'puppet',
     group  => 'puppet',
     mode   => '0755',
   }
 
-  file { '/opt/puppet-rack/tmp':
+  file { '/etc/puppet/rack/tmp':
     ensure => directory,
     owner  => 'puppet',
     group  => 'puppet',
     mode   => '0755',
   }
 
-  file { '/opt/puppet-rack/config.ru':
+  file { '/etc/puppet/rack/config.ru':
     ensure => file,
     owner  => 'puppet',
     group  => 'puppet',
@@ -32,7 +32,7 @@ class puppetmaster::configure {
     source => 'puppet:///modules/puppetmaster/config.ru',
   }
 
-  file { '/opt/puppet-master/puppet.conf':
+  file { '/etc/puppet/puppet.conf':
     ensure  => file,
     owner   => 'puppet',
     group   => 'puppet',
