@@ -56,4 +56,18 @@ class puppetmaster::configure {
     content => template('puppetmaster/nginx-puppet.conf.erb'),
   }
 
+  $generate_ca_cmd = [
+    '/usr/bin/puppet',
+    'cert',
+    'generate',
+    $::fqdn,
+  ]
+
+  exec { 'generate-puppet-ca-cert':
+    command   => shellquote($generate_ca_cmd),
+    creates   => "/var/lib/puppet/ssl/certs/${::fqdn}.pem",
+    logoutput => on_failure,
+    umask     => '0022',
+  }
+
 }
