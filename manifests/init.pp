@@ -1,5 +1,5 @@
 class puppetmaster {
 
-  include 'puppetmaster::package'
+  include 'puppetmaster::puppet_package'
 
 }
