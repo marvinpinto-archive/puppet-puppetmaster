@@ -1,0 +1,59 @@
+class puppetmaster::configure {
+
+  require 'puppetmaster::puppet_package'
+  require 'puppetmaster::nginx_passenger_package'
+
+  file { '/opt/puppet-rack':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0755',
+  }
+
+  file { '/opt/puppet-rack/public':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0755',
+  }
+
+  file { '/opt/puppet-rack/tmp':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0755',
+  }
+
+  file { '/opt/puppet-rack/config.ru':
+    ensure => file,
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0644',
+    source => 'puppet:///modules/puppetmaster/config.ru',
+  }
+
+  file { '/opt/puppet-master/puppet.conf':
+    ensure  => file,
+    owner   => 'puppet',
+    group   => 'puppet',
+    mode    => '0644',
+    content => template('puppetmaster/puppet.conf.erb'),
+  }
+
+  file { '/etc/nginx/nginx.conf':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source => 'puppet:///modules/puppetmaster/nginx.conf',
+  }
+
+  file { '/etc/nginx/conf.d/puppet.conf':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('puppetmaster/nginx-puppet.conf.erb'),
+  }
+
+}
