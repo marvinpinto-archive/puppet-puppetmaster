@@ -5,14 +5,12 @@ vardir = /var/lib/puppet
 rundir = /var/run/puppet
 ssldir = $vardir/ssl
 factpath = $vardir/lib/facter
+certname = <%= @fqdn %>
 
 [master]
-# These are needed when the puppetmaster is run by passenger
-# and can safely be removed if webrick is used.
-ssl_client_header = SSL_CLIENT_S_DN
-ssl_client_verify_header = SSL_CLIENT_VERIFY
 environmentpath = $confdir/environments
-certname = <%= @fqdn %>
+hiera_config = $confdir/environments/production/hiera.yaml
 
 [agent]
-certname = <%= @fqdn %>
+server = <%= @fqdn %>
+environment = production
